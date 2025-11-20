@@ -1,302 +1,312 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Révisions Religion & Philosophie</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révision : Religion & Philosophie</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <div class="bg">
-    <div class="bg-layer bg-1"></div>
-    <div class="bg-layer bg-2"></div>
-    <div class="bg-noise"></div>
-  </div>
 
-  <header class="hero">
-    <nav class="nav">
-      <div class="nav-logo">RP<span>Study</span></div>
-      <div class="nav-links">
-        <a href="#philo">Philosophie</a>
-        <a href="#religion">Religion</a>
-        <a href="#anagramme">Anagramme</a>
-        <a href="#arbre">Arbre</a>
-        <a href="#questions">Questions</a>
-      </div>
+    <!-- MENU D'ENTRÉE 3D (INTRO) -->
+    <div id="intro-overlay">
+        <div class="intro-container">
+            <div class="intro-card" id="intro-card">
+                
+                <!-- FACE AVANT -->
+                <div class="face front">
+                    <h1 class="intro-title">Révision<br><span>Religion</span></h1>
+                    <p class="intro-subtitle">Philosophie & Sens</p>
+                    
+                    <div class="intro-buttons">
+                        <button class="btn-enter" onclick="enterSite()">ENTRER DANS LE SITE 🚀</button>
+                        <button class="btn-credits" onclick="toggleCredits()">Crédits & But ℹ️</button>
+                    </div>
+                </div>
+
+                <!-- FACE ARRIÈRE (CRÉDITS) -->
+                <div class="face back">
+                    <h2>Le But</h2>
+                    <p>Ce site a été conçu pour t'aider à décrocher le 20/20 grâce à des schémas interactifs.</p>
+                    
+                    <div class="credit-box">
+                        <small>Développement & Design</small>
+                        <h3>SPILERIX</h3>
+                    </div>
+
+                    <button class="btn-return" onclick="toggleCredits()">Retour</button>
+                </div>
+
+            </div>
+        </div>
+        <!-- Particules de fond intro -->
+        <div class="particles"></div>
+    </div>
+
+    <!-- ÉLÉMENTS DE DÉCOR -->
+    
+    <!-- Thème Galaxie (Canvas) -->
+    <canvas id="galaxy-canvas" class="galaxy-decor"></canvas>
+    
+    <!-- Thème La Pluie (Canvas + Bus) -->
+    <div class="rain-decor">
+        <canvas id="rain-canvas"></canvas>
+        <div class="bus-stop">
+            <div class="roof"></div>
+            <div class="glass-panel-stop"></div>
+            <div class="pole"></div>
+            <div class="bench"></div>
+            <div class="sign">BUS</div>
+        </div>
+        <div class="pavement"></div>
+    </div>
+    
+    <!-- Thème Campagne (Village + Météo JS) -->
+    <div class="countryside-decor">
+        <div class="sky-bg"></div>
+        <!-- Le conteneur météo géré par JS -->
+        <div id="weather-container"></div>
+        
+        <div class="village">
+            <div class="house h1"></div>
+            <div class="house h2"></div>
+            <div class="house h3-barn"></div>
+        </div>
+        <div class="cow cow-walk">🐄</div>
+        <div class="cow cow-eat">🐄</div>
+        <div class="grass"></div>
+    </div>
+
+    <!-- Arrière-plan Dynamique (Base) -->
+    <div class="animated-bg">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+    </div>
+
+    <!-- BOUTON THÈMES -->
+    <div class="theme-switch-wrapper">
+        <button id="theme-btn" class="theme-btn"><i class="fas fa-palette"></i></button>
+        <div class="theme-menu" id="theme-menu">
+            <button onclick="setTheme('default')">🎨 Original</button>
+            <button onclick="setTheme('dark')">🌑 Sombre</button>
+            <button onclick="setTheme('galaxy')">🌌 Galaxie Pro</button>
+            <button onclick="setTheme('rain')">🌧️ La Pluie</button>
+            <button onclick="setTheme('countryside')">🚜 La Ferme</button>
+        </div>
+    </div>
+
+    <nav>
+        <div class="logo">Révision.<span>Rel</span></div>
+        <ul class="nav-links">
+            <li><a href="#definitions">Définitions</a></li>
+            <li><a href="#enneagramme">Ennéagramme</a></li>
+            <li><a href="#arbre">L'Arbre</a></li>
+            <li><a href="#questions">Philo</a></li>
+            <li><a href="#quiz" class="nav-btn">Quiz</a></li>
+        </ul>
     </nav>
 
-    <div class="hero-content">
-      <div class="hero-text">
-        <p class="hero-kicker">Contrôle de religion & philosophie</p>
-        <h1>Ton espace de <span>révision ultime</span></h1>
-        <p class="hero-subtitle">
-          Tout ce qu’il faut savoir : définitions claires, arbre du cours, questions
-          philosophiques et petit jeu d’anagramme. Design clean, animations fluides,
-          parfait pour réviser vite.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#philo">
-            Commencer les révisions
-            <span class="btn-glow"></span>
-          </a>
-          <a class="btn btn-ghost" href="#questions">
-            Questions philosophiques
-            <span class="btn-glow"></span>
-          </a>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Religion & <span class="highlight">Philosophie</span></h1>
+            <p>Synthèse interactive pour préparer ton contrôle.</p>
+            <a href="#definitions" class="btn">Commencer à réviser</a>
         </div>
-      </div>
-      <div class="hero-panel card glass">
-        <h2>À maîtriser pour ton contrôle ✍️</h2>
-        <ul>
-          <li>Définition simple de la <strong>philosophie</strong>.</li>
-          <li>Définition simple de la <strong>religion</strong>.</li>
-          <li>Comprendre ce qu’est un <strong>anagramme</strong>.</li>
-          <li>Savoir reconstruire l’<strong>arbre “Construire du sens”</strong>.</li>
-          <li>Être capable de donner des <strong>questions philosophiques</strong> pertinentes.</li>
-        </ul>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <section id="philo" class="section">
-      <div class="section-header">
-        <h2>1. La philosophie</h2>
-        <p>Amour de la sagesse, réflexion, questions existentielles.</p>
-      </div>
-      <div class="grid">
-        <article class="card glass fade">
-          <h3>Étymologie</h3>
-          <p><strong>Philo</strong> = amour, <strong>sophia</strong> = sagesse → <strong>amour de la sagesse</strong>.</p>
-        </article>
-        <article class="card glass fade">
-          <h3>Définition simple</h3>
-          <p>
-            La philosophie est une <strong>démarche de réflexion rationnelle</strong> qui cherche à comprendre l’homme,
-            le monde et le sens de la vie.
-          </p>
-        </article>
-        <article class="card glass fade">
-          <h3>Une question est philosophique lorsque…</h3>
-          <ul>
-            <li>Elle ne demande pas juste un fait mais une <strong>réflexion</strong>.</li>
-            <li>On peut y répondre de plusieurs façons argumentées.</li>
-            <li>Elle touche aux <strong>questions existentielles</strong> (vie, mort, liberté, bonheur…).</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+    <main>
+        <!-- SECTION 1: DÉFINITIONS -->
+        <section id="definitions" class="container">
+            <h2 class="section-title">Les Bases</h2>
+            <div class="cards-container">
+                <!-- Philosophie -->
+                <div class="card philo">
+                    <div class="card-content-wrapper">
+                        <div class="icon"><i class="fas fa-brain"></i></div>
+                        <h3>Philosophie</h3>
+                        <p class="etymo"><em>Philo</em> (aimer) + <em>Sophia</em> (sagesse)</p>
+                        <div class="content">
+                            <p><strong>Définition simple :</strong> C'est l'art de se poser des questions rationnelles sur le monde, l'homme et le sens de la vie.</p>
+                            <ul class="keywords">
+                                <li>Questionnement</li>
+                                <li>Raison / Logique</li>
+                                <li>Liberté de penser</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-    <section id="religion" class="section section-alt">
-      <div class="section-header">
-        <h2>2. La religion</h2>
-        <p>Relier l’être humain au divin et donner un sens à la vie.</p>
-      </div>
-      <div class="grid">
-        <article class="card glass fade">
-          <h3>Étymologie</h3>
-          <p><strong>Religare</strong> (latin) = relier → la religion <strong>relie</strong> l’être humain à Dieu / au sacré.</p>
-        </article>
-        <article class="card glass fade">
-          <h3>Définition simple</h3>
-          <p>
-            Ensemble de <strong>croyances</strong>, de <strong>rites</strong> et de <strong>valeurs</strong> qui orientent la manière de vivre
-            et donnent un sens à l’existence.
-          </p>
-        </article>
-        <article class="card glass fade">
-          <h3>Philosophie vs religion</h3>
-          <div class="columns">
-            <div>
-              <h4>Philosophie</h4>
-              <ul>
-                <li>Questionnement.</li>
-                <li>Utilise surtout la <strong>raison</strong>.</li>
-                <li>Remet les réponses en question.</li>
-              </ul>
+                <!-- Religion -->
+                <div class="card religion">
+                    <div class="card-content-wrapper">
+                        <div class="icon"><i class="fas fa-hands-praying"></i></div>
+                        <h3>Religion</h3>
+                        <p class="etymo"><em>Religare</em> (relier)</p>
+                        <div class="content">
+                            <p><strong>Définition simple :</strong> Ensemble de croyances et de dogmes qui définissent le rapport de l'homme au sacré et aux dieux.</p>
+                            <ul class="keywords">
+                                <li>Croyance / Foi</li>
+                                <li>Réponse / Vérité</li>
+                                <li>Lien communautaire</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <h4>Religion</h4>
-              <ul>
-                <li>Croyance / foi.</li>
-                <li>Référence à un <strong>Dieu</strong> et à des textes sacrés.</li>
-                <li>Propose des réponses stables (dogmes).</li>
-              </ul>
+
+            <div class="comparison-container">
+                <h3 class="sub-title">Comparatif Détaillé</h3>
+                
+                <!-- Tableau Différences -->
+                <div class="diff-table">
+                    <div class="col col-philo">
+                        <h4>Philosophie</h4>
+                        <ul>
+                            <li><i class="fas fa-question"></i> Questionnement constant</li>
+                            <li><i class="fas fa-unlock"></i> Liberté de penser totale</li>
+                            <li><i class="fas fa-lightbulb"></i> Utilise la <strong>Raison</strong></li>
+                            <li><i class="fas fa-infinity"></i> Réponses ouvertes</li>
+                        </ul>
+                    </div>
+                    <div class="separator">VS</div>
+                    <div class="col col-rel">
+                        <h4>Religion</h4>
+                        <ul>
+                            <li><i class="fas fa-hands-praying"></i> Croyance & Foi</li>
+                            <li><i class="fas fa-book-bible"></i> S'appuie sur des Dogmes</li>
+                            <li><i class="fas fa-church"></i> Rapport au <strong>Sacré</strong></li>
+                            <li><i class="fas fa-check-circle"></i> Vérités révélées</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
-        </article>
-      </div>
-    </section>
+        </section>
 
-    <section id="anagramme" class="section">
-      <div class="section-header">
-        <h2>3. Qu’est-ce qu’un anagramme ?</h2>
-        <p>Un petit jeu avec les lettres… et le sens des mots.</p>
-      </div>
-      <div class="grid grid-wide">
-        <article class="card glass fade big">
-          <p>
-            Un <strong>anagramme</strong> est un mot ou une phrase obtenu(e) en
-            <strong>changeant l’ordre des lettres</strong> d’un autre mot ou d’une autre phrase.
-          </p>
-          <p class="example">
-            Exemples : <strong>Marie</strong> → <strong>Aimer</strong>, <strong>Rome</strong> → <strong>Amor</strong>.
-          </p>
-          <ul>
-            <li>Permet de <strong>jouer avec les mots</strong>.</li>
-            <li>Entraîne la logique et l’attention.</li>
-            <li>Peut cacher un <strong>message secret</strong> ou symbolique.</li>
-          </ul>
-
-          <div class="anag-play">
-            <label for="inputAnag">Écris un mot et clique sur “Mélanger les lettres” :</label>
-            <div class="anag-controls">
-              <input id="inputAnag" type="text" placeholder="ex : bonheur" />
-              <button class="btn btn-primary" id="shuffleBtn">
-                Mélanger les lettres
-                <span class="btn-glow"></span>
-              </button>
+        <!-- SECTION 2: ENNÉAGRAMME -->
+        <section id="enneagramme" class="container">
+            <div class="glass-panel">
+                <h2 class="section-title">C'est quoi un Ennéagramme ?</h2>
+                <p class="intro-text">"Aneagramme" est une faute pour <strong>Ennéagramme</strong>.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4><i class="fas fa-question-circle"></i> Définition</h4>
+                        <p>C'est un modèle de la structure de la personnalité humaine. Il décrit <strong>9 types de personnalités</strong> différents et leurs interactions.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4><i class="fas fa-bullseye"></i> À quoi ça sert ?</h4>
+                        <p>Il sert à <strong>mieux se connaître</strong> (découvrir ses motivations profondes, ses peurs) et à mieux comprendre les autres pour améliorer ses relations. C'est un outil de croissance personnelle.</p>
+                    </div>
+                </div>
             </div>
-            <p class="shuffle-result" id="shuffleResult"></p>
-          </div>
-        </article>
-      </div>
-    </section>
+        </section>
 
-    <section id="arbre" class="section section-alt">
-      <div class="section-header">
-        <h2>4. L’« arbre » du cours : construire du sens</h2>
-        <p>Schéma à savoir redessiner pour ton contrôle.</p>
-      </div>
+        <!-- SECTION 3: L'ARBRE DE SENS (ANIMÉ) -->
+        <section id="arbre" class="container">
+            <h2 class="section-title">Construire du Sens</h2>
+            <p class="subtitle" style="text-align:center;">Reconstitution animée du schéma</p>
 
-      <div class="tree-layout">
-        <div class="tree-diagram card glass fade">
-          <div class="tree-branch tree-top-left">
-            <span>Questions existentielles</span>
-          </div>
-          <div class="tree-branch tree-top-right">
-            <span>Apports culturels</span>
-          </div>
-          <div class="tree-branch tree-bottom">
-            <span>Foi chrétienne / tradition</span>
-          </div>
-          <div class="tree-center">
-            <span>Construire du sens</span>
-          </div>
-          <div class="tree-base">
-            <span>Tracer un chemin de croissance</span>
-          </div>
-        </div>
+            <div class="diagram-container">
+                <div class="diagram-wrapper">
+                    <!-- Les 3 Cercles -->
+                    <div class="circles-group">
+                        <!-- Flèches Animées (SVG amélioré) -->
+                        <svg class="arrows-svg" viewBox="0 0 400 350">
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#bdc3c7" />
+                                </marker>
+                            </defs>
+                            <path class="arrow-path" d="M 80 200 C 20 150, 20 50, 80 30" fill="transparent" stroke="#bdc3c7" marker-end="url(#arrowhead)" />
+                            <path class="arrow-path" d="M 320 200 C 380 150, 380 50, 320 30" fill="transparent" stroke="#bdc3c7" marker-end="url(#arrowhead)" />
+                            <path class="arrow-path" d="M 150 20 Q 200 -20, 250 20" fill="transparent" stroke="#bdc3c7" marker-end="url(#arrowhead)" />
+                        </svg>
 
-        <div class="tree-notes card glass fade">
-          <h3>Comment le redessiner au contrôle ?</h3>
-          <ol>
-            <li>Dessine un <strong>tronc central</strong> : au milieu, écris « Construire du sens ».</li>
-            <li>Ajoute trois <strong>branches / bulles</strong> autour :</li>
-            <ul>
-              <li>En haut à gauche : <strong>Questions existentielles</strong>.</li>
-              <li>En haut à droite : <strong>Apports culturels</strong>.</li>
-              <li>En bas : <strong>Foi chrétienne / tradition</strong>.</li>
-            </ul>
-            <li>En dessous, trace un <strong>socle</strong> et écris : « Tracer un chemin de croissance ».</li>
-            <li>Tu peux ajouter des flèches pour montrer que tout <strong>interagit</strong> pour aider l’élève à grandir.</li>
-          </ol>
-        </div>
-      </div>
-    </section>
+                        <div class="circle c1">
+                            <span class="number">1</span>
+                            <span class="text">Questions<br>Existentielles</span>
+                        </div>
+                        <div class="circle c2">
+                            <span class="number">2</span>
+                            <span class="text">Apports<br>Culturels</span>
+                        </div>
+                        <div class="circle c3">
+                            <span class="number">3</span>
+                            <span class="text">Foi<br>Chrétienne</span>
+                        </div>
+                        
+                        <!-- Intersection Centrale -->
+                        <div class="center-intersection">
+                            <div class="center-content">
+                                <i class="fas fa-archway"></i>
+                                <span>CONSTRUIRE<br>DU SENS</span>
+                            </div>
+                        </div>
+                    </div>
 
-    <section id="questions" class="section">
-      <div class="section-header">
-        <h2>5. Exemples de questions philosophiques</h2>
-        <p>Clique sur une carte pour voir la question + une courte explication.</p>
-      </div>
+                    <!-- Le Tronc / Chemin -->
+                    <div class="trunk">
+                        <div class="trunk-text">
+                            TRACER UN CHEMIN<br>DE CROISSANCE
+                        </div>
+                    </div>
 
-      <div class="question-grid">
-        <article class="q-card fade">
-          <div class="q-inner">
-            <div class="q-face q-front">Question 1</div>
-            <div class="q-face q-back">
-              <h4>Pourquoi existons-nous ?</h4>
-              <p>
-                Question sur le <strong>sens de l’existence</strong>. Elle ne se contente pas d’un fait : elle demande une
-                réflexion sur la raison d’être de l’homme et du monde.
-              </p>
+                    <!-- La Base -->
+                    <div class="base">
+                        <div class="base-left">
+                            <strong>À PARTIR DES PROFILS DES JEUNES</strong><br>
+                            Social, Culturel, Psychologique...
+                        </div>
+                        <div class="base-right">
+                            <strong>DE LA TRADITION CHRÉTIENNE</strong><br>
+                            Travaillée par le professeur
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </article>
+        </section>
 
-        <article class="q-card fade">
-          <div class="q-inner">
-            <div class="q-face q-front">Question 2</div>
-            <div class="q-face q-back">
-              <h4>Qu’est-ce que le bonheur ?</h4>
-              <p>
-                Est-ce un plaisir momentané ou un état profond et durable ?
-                La philosophie analyse ce qui rend une vie vraiment heureuse.
-              </p>
+        <!-- SECTION 4: QUESTIONS PHILOSOPHIQUES -->
+        <section id="questions" class="container">
+            <h2 class="section-title">Le Questionnement Philosophique</h2>
+            
+            <div class="glass-panel">
+                <ul class="check-list">
+                    <li><i class="fas fa-check"></i> Elle cherche un sens général (universel).</li>
+                    <li><i class="fas fa-check"></i> La réponse n'est jamais définitive ni scientifique.</li>
+                    <li><i class="fas fa-check"></i> Elle met en lien des idées.</li>
+                </ul>
             </div>
-          </div>
-        </article>
+        </section>
 
-        <article class="q-card fade">
-          <div class="q-inner">
-            <div class="q-face q-front">Question 3</div>
-            <div class="q-face q-back">
-              <h4>Sommes-nous vraiment libres ?</h4>
-              <p>
-                Nos choix sont-ils déterminés par notre caractère, notre éducation, la société ?
-                La question interroge la <strong>liberté humaine</strong>.
-              </p>
+        <!-- SECTION 5: QUIZ EXPRESS -->
+        <section id="quiz" class="container">
+            <h2 class="section-title">Quiz Express 🚀</h2>
+            <p class="subtitle" style="text-align:center; margin-bottom:2rem;">Teste tes connaissances avant le contrôle !</p>
+
+            <div class="quiz-wrapper">
+                <div id="quiz-card" class="quiz-card">
+                    <div class="question-number">Question <span id="q-current">1</span>/6</div>
+                    <h3 id="q-text">"Je cherche un sens général et rationnel."</h3>
+                    <div class="options">
+                        <button class="btn-option" onclick="checkAnswer('philo')">C'est la Philo 🧠</button>
+                        <button class="btn-option" onclick="checkAnswer('religion')">C'est la Religion 🙏</button>
+                    </div>
+                    <div id="feedback" class="feedback"></div>
+                </div>
             </div>
-          </div>
-        </article>
+        </section>
 
-        <article class="q-card fade">
-          <div class="q-inner">
-            <div class="q-face q-front">Question 4</div>
-            <div class="q-face q-back">
-              <h4>Qu’est-ce qu’une vie réussie ?</h4>
-              <p>
-                Avoir de l’argent ? Être célèbre ? Être utile aux autres ?
-                La philosophie aide à réfléchir à ce qui donne une vraie valeur à une vie.
-              </p>
-            </div>
-          </div>
-        </article>
+    </main>
 
-        <article class="q-card fade">
-          <div class="q-inner">
-            <div class="q-face q-front">Question 5</div>
-            <div class="q-face q-back">
-              <h4>La mort donne-t-elle un sens à la vie ?</h4>
-              <p>
-                Le fait que la vie a une fin nous pousse-t-il à mieux choisir ce que nous faisons ?
-                Question sur le rapport entre <strong>vie et mort</strong>.
-              </p>
-            </div>
-          </div>
-        </article>
+    <footer>
+        <p>Bonne chance pour le contrôle ! 🍀 | Créé pour tes révisions.</p>
+    </footer>
 
-        <article class="q-card fade">
-          <div class="q-inner">
-            <div class="q-face q-front">Question 6</div>
-            <div class="q-face q-back">
-              <h4>Peut-on tout savoir ?</h4>
-              <p>
-                Interroge les limites de la connaissance humaine et le rôle de la science, de la philosophie
-                et de la religion face au mystère.
-              </p>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>Site de révision créé pour ton contrôle ✨ Tu peux l’héberger sur GitHub et le revoir quand tu veux.</p>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
+    <script src="canvas-effects.js"></script>
 </body>
 </html>
