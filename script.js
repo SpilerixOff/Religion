@@ -1,56 +1,22 @@
-// anagramme shuffle
-function shuffleWord(word){
-  if(!word) return '';
-  const arr = word.split('');
-  for(let i = arr.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  const shuffled = arr.join('');
-  return shuffled.toLowerCase() === word.toLowerCase() ? shuffleWord(word) : shuffled;
+// background particles
+const c=document.getElementById('bg'),ctx=c.getContext('2d');
+let w,h,particles=[];
+function resize(){w=c.width=innerWidth;h=c.height=innerHeight;}
+window.onresize=resize;resize();
+
+for(let i=0;i<120;i++){
+ particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*0.6,vy:(Math.random()-.5)*0.6,r:Math.random()*2+1});
 }
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  const shuffleBtn = document.getElementById('shuffleBtn');
-  const shuffleResult = document.getElementById('shuffleResult');
-  const inputAnag = document.getElementById('inputAnag');
-
-  if(shuffleBtn){
-    shuffleBtn.addEventListener('click', ()=>{
-      const word = inputAnag.value.trim();
-      if(!word){
-        shuffleResult.textContent = 'Écris d’abord un mot 😉';
-        return;
-      }
-      shuffleResult.textContent = shuffleWord(word);
-    });
-  }
-
-  // animation des sections au scroll
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('visible');
-      }
-    });
-  },{
-    threshold:0.15
-  });
-
-  document.querySelectorAll('.fade-in').forEach(sec=>observer.observe(sec));
-
-  // smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(link=>{
-    link.addEventListener('click', (e)=>{
-      const targetId = link.getAttribute('href').slice(1);
-      const target = document.getElementById(targetId);
-      if(target){
-        e.preventDefault();
-        window.scrollTo({
-          top: target.offsetTop - 70,
-          behavior:'smooth'
-        });
-      }
-    });
-  });
-});
+function draw(){
+ ctx.clearRect(0,0,w,h);
+ ctx.fillStyle="#00eaff";
+ particles.forEach(p=>{
+   p.x+=p.vx;p.y+=p.vy;
+   if(p.x<0||p.x>w)p.vx*=-1;
+   if(p.y<0||p.y>h)p.vy*=-1;
+   ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+ });
+ requestAnimationFrame(draw);
+}
+draw();
